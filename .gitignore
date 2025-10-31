@@ -1,0 +1,62 @@
+# Git ignore for MATLAB / Simulink projects
+# Reference: https://github.com/github/gitignore/blob/main/MATLAB.gitignore
+
+#### MATLAB / Simulink ####
+*.asv
+*.log
+*.tmp
+*.bak
+
+# Compiled MEX files
+*.mexw32
+*.mexw64
+*.mexa64
+*.mexmaci64
+*.mex*     # any other mex variants
+
+# MATLAB files that are usually large or generated
+*.mat
+*.fig
+*.mlx
+*.mlapp
+
+# Simulink
+*.slx
+*.mdl
+*.sldd
+*.slxc
+
+# Autosave / backup files
+*.autosave
+
+#### Code generation / build folders ####
+/codegen/
+/slprj/
+/_ert_rtw/
+/build/
+
+#### Editor, IDE and OS files ####
+.DS_Store
+Thumbs.db
+desktop.ini
+*~
+*.swp
+*.swo
+
+# VSCode workspace settings
+/.vscode/
+
+#### Language-specific ####
+# Python
+__pycache__/
+*.pyc
+
+# Node
+node_modules/
+
+#### Project misc ####
+# Keep .gitkeep files tracked
+!.gitkeep
+
+# Ignore user-specific MATLAB preferences or cache directories (if present)
+/.matlab/
