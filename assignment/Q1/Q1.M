@@ -59,15 +59,16 @@ n  = 0:N-1;               % time index
 % Compute impulse responses
 h1 = filter(B1, A1, x);   % Filter 1 (expected stable)
 h2 = filter(B2, A2, x);   % Filter 2 (expected unstable)
+h3 = filter(B3, A3, x);   % Filter 2 (expected unstable)
 
 % Display quick numerical info
 fprintf('Filter 1 : Max |h[n]| = %.6g, |h[end]| = %.6g\n', max(abs(h1)), abs(h1(end)));
 fprintf('Filter 2 : Max |h[n]| = %.6g, |h[end]| = %.6g\n', max(abs(h2)), abs(h2(end)));
-
+fprintf('Filter 3 : Max |h[n]| = %.6g, |h[end]| = %.6g\n', max(abs(h3)), abs(h3(end)));
 % Plot impulse responses
 figure;
 
-subplot(2,1,1);
+subplot(3,1,1);
 h1s = stem(n, h1, 'filled');
 set(h1s, 'MarkerSize', 3);     % Make markers smaller (default ≈ 6)
 grid on;
@@ -75,9 +76,9 @@ title('Impulse Response — Filter 1');
 xlabel('n');
 ylabel('h_1[n]');
 xlim([0 70]);
-ylim([-0.25 0.45]);
+ylim([-0.25 0.5]);
 
-subplot(2,1,2);
+subplot(3,1,2);
 h2s = stem(n, h2, 'filled');
 set(h2s, 'MarkerSize', 3);
 grid on;
@@ -85,7 +86,17 @@ title('Impulse Response — Filter 2');
 xlabel('n');
 ylabel('h_2[n]');
 xlim([0 70]);
-ylim([-0.05 12*10^9]);
+ylim([-2.5*10^10 10*10^10]);
+
+subplot(3,1,3);
+h3s = stem(n, h3, 'filled');
+set(h3s, 'MarkerSize', 3);
+grid on;
+title('Impulse Response — Filter 2');
+xlabel('n');
+ylabel('h_3[n]');
+xlim([0 70]);
+ylim([-10*10^10 10*10^10]);
 
 % OPTIONAL: Semilog plot to highlight decay/growth
 figure;
