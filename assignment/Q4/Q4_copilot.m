@@ -15,17 +15,8 @@ nyq = fs/2;
 Wp = Wp_hz / nyq;
 Ws = Ws_hz / nyq;
 
-% safety checks
-if Wp <= 0 || Ws <= 0 || Wp >= 1 || Ws >= 1
-	error('Cutoff frequencies must be between 0 and Nyquist (fs/2).');
-end
-if Ws <= Wp
-	error('Ws_hz must be greater than Wp_hz');
-end
-
 %% search for minimum order using helper function
-% Move the firpm minimum-order search into an auxiliary function `fir_lp`.
-% This keeps the script concise and lets other scripts reuse the search.
+
 [h_best, N_min, H_best, f_best, stop_attn_db] = fir_lp(Wp_hz, Ws_hz, fs, Rs, M, maxOrder);
 
 %% report and plot

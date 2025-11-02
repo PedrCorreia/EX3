@@ -27,7 +27,7 @@ function [B, A, n] = elip_lp(Wp_hz, Ws_hz, Rp, Rs, fs)
 
     % Determine minimum order using custom search routine (returns order)
     maxOrder = 100; % safety cap; adjust if needed
-    n = elip_min_order_fixed(Wp, Ws, Rp, Rs, maxOrder);
+    n = elip_min_order(Wp, Ws, Rp, Rs, maxOrder);
 
     % Design elliptic filter of order n using the found normalized passband edge
     [B, A] = ellip(n, Rp, Rs, Wp);
