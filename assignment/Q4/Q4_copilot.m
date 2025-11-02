@@ -22,20 +22,6 @@ Ws = Ws_hz / nyq;
 %% report and plot
 fprintf('Minimum FIR order found: N = %d (length = %d taps)\n', N_min, N_min+1);
 fprintf('Stopband attenuation at %g Hz and above: %.2f dB\n', Ws_hz, stop_attn_db);
-
-figure;
-plot(f_best, 20*log10(abs(H_best)+eps), 'LineWidth', 1);
-grid on;
-xlabel('Frequency (Hz)');
-ylabel('Magnitude (dB)');
-title(sprintf('FIRpm lowpass (order %d) — magnitude (dB)', N_min));
-ylim([-100 5]);
-hold on;
-yl = ylim;
-plot([Wp_hz Wp_hz], yl, 'k--');
-plot([Ws_hz Ws_hz], yl, 'k--');
-legend('Magnitude (dB)','Wp','Ws');
-
 % save best coefficients to workspace variable
 B_fir = h_best(:).';
 A_fir = 1;

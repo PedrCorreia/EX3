@@ -1,36 +1,25 @@
-function [n] = elip_min_order_fixed(Wp, Ws, Rp, Rs, maxOrder)
-%ELIP_MIN_ORDER_FIXED Find minimum elliptic filter order by iterative design
-%   [n] = elip_min_order_fixed(Wp, Ws, Rp, Rs, maxOrder)
-%   Wp and Ws are normalized frequencies in (0,1], where 1 corresponds to Nyquist.
-
-% Frequency grid for testing (rad/sample)
-Nfft = 8192;
-w = linspace(0, pi, Nfft);
-fn = w / pi; % normalized 0..1
-
-stop_idx = fn >= Ws & fn <= 1;
-
-found = false;
+function [n] = elip_min_order(Wp, Ws, Rp, Rs, maxOrder)
+Nfft=8016
 for n_try = 1:maxOrder
-    try
-        [b, a] = ellip(n_try, Rp, Rs, Wp);
-    catch
-        % some orders may not be valid; continue searching
+    [b, a] = ellip(n_try, Rp, Rs, Wp);
+    [H, f] = transfer(b, a, Nfft); % f in cycles/sample [-0.5,0.5]
+    % select positive-half frequencies and convert to normalized 0..1
+    pos = f >= 0;
+    H_pos = H(pos);
+    f_norm_pos = 2 * f(pos); % maps [0,0.5] -> [0,1]
+    stop_idx = f_norm_pos >= Ws & f_norm_pos <= 1;
+    if ~any(stop_idx)
         continue
     end
-
-    H = freqz(b, a, w);
-    stop_mag = max(abs(H(stop_idx)));
+    stop_mag = max(abs(H_pos(stop_idx)));
     stop_attn_db = -20*log10(stop_mag + eps);
-    if stop_attn_db >= Rs && ~found
+    if stop_attn_db >= Rs
         n = n_try;
-        found = true;
-        if found
-            return
-        end
+        return
     end
 end
 
+error('Could not find elliptic order up to %d that meets Rs = %g dB', maxOrder, Rs);
 end
 
  
