@@ -34,7 +34,7 @@ function [b, N] = design_lowpass_fir(n, fs, fp, fst, atten)
     fprintf('Filter order: %d\n', N);
 
     % Design the FIR filter using Parks-McClellan
-    b = firpm(N, f, a);
+    b = firpm(n, f, a);
 
     % Compute the full two-sided frequency response
     M = 2048;                            % number of frequency samples
@@ -44,26 +44,26 @@ function [b, N] = design_lowpass_fir(n, fs, fp, fst, atten)
     % Plot magnitude (linear)
     subplot(3,1,1)
     plot(f_Hz, abs(H), 'LineWidth', 2);
-    xlabel('Frequency (Hz)', 'FontSize', 14);
-    ylabel('|H(f)|', 'FontSize', 14);
-    title(sprintf('Low-pass FIR filter (Order = %d)', N), 'FontSize', 16);
+    xlabel('Frequency (Hz)', 'FontSize', 20);
+    ylabel('|H(f)|', 'FontSize', 20);
+    title(sprintf('Low-pass FIR filter (Order = %d)', N), 'FontSize', 20);
     grid on;
 
     % Plot magnitude in dB
     subplot(3,1,2)
     plot(f_Hz, 20*log10(abs(H)), 'LineWidth', 2);
-    xlabel('Frequency (Hz)', 'FontSize', 14);
-    ylabel('Magnitude (dB)', 'FontSize', 14);
-    title('Two-sided frequency response', 'FontSize', 16);
+    xlabel('Frequency (Hz)', 'FontSize', 20);
+    ylabel('Magnitude (dB)', 'FontSize', 20);
+    title('Two-sided frequency response', 'FontSize', 20);
     axis([-fs/2 fs/2 -100 5]);
     grid on;
 
     % Plot phase
     subplot(3,1,3)
     plot(f_Hz, angle(H), 'LineWidth', 2);
-    xlabel('Frequency (Hz)', 'FontSize', 14);
-    ylabel('Phase (radians)', 'FontSize', 14);
-    title('Phase Response', 'FontSize', 16);
+    xlabel('Frequency (Hz)', 'FontSize', 20);
+    ylabel('Phase (radians)', 'FontSize', 20);
+    title('Phase Response', 'FontSize', 20);
     grid on;
 end
 
@@ -78,9 +78,9 @@ n= 64; % as was defined in Q3
 
 figure;
 stem(0:length(b)-1, b, 'filled');
-xlabel('Sample index n');
-ylabel('Amplitude');
-title('Impulse Response of the FIR Filter');
+xlabel('Sample index n', 'FontSize', 20);
+ylabel('Amplitude', 'FontSize', 20);
+title('Impulse Response of the FIR Filter', 'FontSize', 22);
 grid on;
 
 

@@ -25,7 +25,6 @@ stem(n, h1)
 grid on
 
 % Stable Filter F1 Fourier transform
-
 H1 = fftshift(fft(h1));
 axis = -N/2:(N-1)/2;
 
@@ -83,10 +82,10 @@ figure;
 plot(freq_axis, 20*log10(abs(H1)/max(abs(H1))), 'LineWidth', 2); hold on;
 plot(freq_axis_M+8*(1/M), 20*log10(abs(H1_1)/max(abs(H1_1))), 'LineWidth', 2);
 grid on;
-title('Magnitude Response Comparison: H_1 and H_11', FontSize=22);
+title('Magnitude Response Comparison: H_{1,fft} and H_{1,transfer}', FontSize=22);
 xlabel('Normalized Frequency (f/fs)', FontSize=20);
 ylabel('Magnitude (dB)', FontSize=20);
-legend('|H_1|', '|H_11|');
+legend('|H_{1,fft} |', '|H_{1,transfer} |', fontsize=14);
 ylim([-120 10])
 xlim([-0.5 0.5])
 %%
